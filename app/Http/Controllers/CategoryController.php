@@ -25,35 +25,24 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category resource in storage.
      */
     public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:64', 'min:3'],
-            'description' => ['optional', 'string', 'max:255'],
-        ]);
-
-        $category = Category::create($validated);
+        /* We use the ->all() method as the validation
+           occurs via the StoreCategoryRequest class */
+        $category = Category::create($request->all());
         return ApiResponse::success($category, "Category Added");
-
     }
 
     /**
      * Display the specified category.
      *
-     * @param  int  $id  Integer ID of the Category
+     * @param Category $category Use Route-Model Binding to retrieve resource
      */
-    public function show(int $id)
+    public function show(Category $category)
     {
-        $category = Category::whereId($id)->get();
-
-        if ($category->count() > 0) {
-            return ApiResponse::success($category, "Category Found");
-        }
-
-        return ApiResponse::error($category, "Category not Found", 404);
-
+        return ApiResponse::success($category, "Category Found");
     }
 
     /**
