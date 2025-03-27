@@ -1,28 +1,15 @@
 <?php
 
 use App\Classes\ApiResponse;
-use App\Http\Controllers\CategoryController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('categories', CategoryController::class);
-});
-
-/*
-Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('categories', CategoryController::class)
-        ->except(['update','delete',]);
-
-    Route::apiResource('categories', CategoryController::class)
-        ->only(['update','delete',])
-        ->middleware('auth:sanctum');
-});
-*/
+/**
+ * API Routes defined by version in separate files.
+ *
+ * V1   routes/api_v1.php
+ * V2   routes/api_v2.php
+ *
+ */
 
 /**
  * Fallback to 404
@@ -34,3 +21,6 @@ Route::fallback(static function () {
         404
     );
 });
+
+
+

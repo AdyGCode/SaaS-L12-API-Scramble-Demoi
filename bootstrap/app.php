@@ -12,6 +12,18 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__ . '/../routes/api.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
+        then: function(){
+            Route::middleware('api')
+                ->prefix('api/v1')
+                ->group(base_path('routes/api_v1.php'));
+
+            Route::middleware('api')
+                ->prefix('api/v2')
+                ->group(base_path('routes/api_v2.php'));
+
+            /* Add further API versions here... */
+
+        } ,
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
@@ -24,6 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     404
                 );
             }
-        });
+        }
+        );
 
     })->create();
