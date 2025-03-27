@@ -7,7 +7,6 @@ use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\Operation;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Dedoc\Scramble\Support\RouteInfo;
-use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -27,15 +26,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
         /****************************************************************************
          * Scramble Documentation Configuration Section
          *
-         * Ignore the default /docs/api endpoint
          * Add bearer token requirements
          * Remove the authentication requirements from routes that do not need it
          ***************************************************************************/
-
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi) {
                 $openApi->secure(
@@ -93,7 +89,15 @@ class AppServiceProvider extends ServiceProvider
         Scramble::registerUiRoute(path: 'docs/v2', api: 'v2');
         Scramble::registerJsonSpecificationRoute(path: 'docs/v2.json', api: 'v2');
 
+        /****************************************************************************
+         * API Version X Scramble Documentation Configuration
+         * Add each version using the same pattern as for v1 and v2 above
+         ***************************************************************************/
 
+
+        /****************************************************************************
+         * Ignore the default /docs/api endpoint
+         ***************************************************************************/
         Scramble::ignoreDefaultRoutes();
 
     }
