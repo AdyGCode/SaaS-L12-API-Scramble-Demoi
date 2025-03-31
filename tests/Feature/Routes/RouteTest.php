@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Testing\TestResponse;
 
+it('is up', function () {
+   $response = $this->getJson('/up');
+   expect($response)->toBeSuccessful();
+});
+
 //it('has a working response for all routes', function () {
 //    // Retrieve all routes
 //    $routes = collect(Route::getRoutes())->map(function ($route) {

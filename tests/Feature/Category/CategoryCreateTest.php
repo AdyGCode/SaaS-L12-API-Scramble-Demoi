@@ -17,7 +17,7 @@ test('Create a new category', function(){
 
     // This stimulates authentication when creating the new post
     $this->actingAs($user)
-        ->post('/categories', $categoryData);
+        ->postJson('/api/v2/categories', $categoryData);
 
     $this->assertDatabaseHas('categories', [
         'user_id' => $user->id,
