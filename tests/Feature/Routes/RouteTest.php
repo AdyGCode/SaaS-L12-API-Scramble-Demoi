@@ -6,7 +6,8 @@ use Illuminate\Testing\TestResponse;
 
 it('is up', function () {
    $response = $this->getJson('/up');
-   expect($response)->toBeSuccessful();
+   expect($response->content())
+       ->toBeSuccessful();
 });
 
 //it('has a working response for all routes', function () {
